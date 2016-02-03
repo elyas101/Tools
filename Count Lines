@@ -1,0 +1,51 @@
+#!/usr/bin/perl
+#countlines.pl
+#
+use strict;
+use warnings;
+use IO::File;
+
+
+
+###############################################################
+###################### DOCUMENTATION ###########################
+#
+### Author: Elias Salfati
+### Date: Jan 2016
+### Goal: Count lines
+my $title = "countLines.pl";
+my $version = "version 1.0.2";
+#
+print "\n$title\n";
+print "$version\n";
+print "by: Elias Salfati (elyas\@stanford.edu)\n\n";
+#
+### Input Parameters
+###
+#
+### Input Files
+### (1) file: file name
+#
+################## END OF DOCUMENTATION ########################
+################################################################
+
+my $filename = $ARGV[0];
+unless ($filename) {
+    print "Enter filename:\n";
+    $filename = <STDIN>;
+    chomp $filename;
+}
+
+my $fh = IO::File->new( $filename, "r");
+if(! $fh) {
+	print("Cannot open $filename ($!)\n");
+	exit;
+}
+
+my $count = 0;
+while( $fh->getline ) {
+	$count++;
+}
+
+$fh->close;
+print("There are $count lines in $filename\n");
